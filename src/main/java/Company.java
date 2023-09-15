@@ -26,5 +26,9 @@ public class Company {
         this.employees.add(employee);
     }
 
+    public String toString() {
+        return this.name + ", " + this.industry + ", " + this.address;
+    }
+
 
 }
