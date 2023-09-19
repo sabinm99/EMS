@@ -9,7 +9,6 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.util.List;
 import java.util.Objects;
 
 public class Controller {
@@ -57,12 +56,8 @@ public class Controller {
     }
 
     public void viewCompanies(ActionEvent e) throws IOException {
-
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("viewCompaniesWindow.fxml"));
         root = loader.load();
-        ViewCompaniesController viewController = loader.getController();
-
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
         scene = new Scene(root);
         stage.setScene(scene);
@@ -71,10 +66,12 @@ public class Controller {
     }
 
     public void backToMainScreen(ActionEvent e) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ui.fxml"));
+        root = loader.load();
         stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
-        stage.setScene(previousScene);
+        scene = new Scene(root);
+        stage.setScene(scene);
         stage.show();
-        System.out.println("pressed");
     }
 
 

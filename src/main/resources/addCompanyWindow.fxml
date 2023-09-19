@@ -11,7 +11,6 @@
       <TextField fx:id="foundingDate" layoutX="225.0" layoutY="247.0" promptText="Founding date" />
       <TextField fx:id="companyName" layoutX="225.0" layoutY="112.0" promptText="Company name" />
       <Button fx:id="submit" layoutX="274.0" layoutY="296.0" mnemonicParsing="false" onAction="#submitCompany" text="Submit" />
-      <Button layoutX="62.0" layoutY="64.0" mnemonicParsing="false" onAction="#backToMainScreen" text="Go back" />
-      <Button fx:id="viewButton" layoutX="473.0" layoutY="64.0" mnemonicParsing="false" onAction="#viewCompanies" text="View" />
+      <Button fx:id="goBackButton" layoutX="62.0" layoutY="64.0" mnemonicParsing="false" onAction="#backToMainScreen" text="Go back" />
    </children>
 </Pane>

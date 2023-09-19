@@ -50,7 +50,7 @@
 
 <VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar prefHeight="18.0" prefWidth="410.0" VBox.vgrow="NEVER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -91,7 +91,7 @@
     </MenuBar>
     <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
       <items>
-        <ScrollPane prefHeight="-1.0" prefWidth="-1.0">
+        <ScrollPane prefHeight="551.0" prefWidth="394.0">
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
@@ -103,6 +103,7 @@
                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill></Label>
                         <Button layoutX="24.0" layoutY="125.0" mnemonicParsing="false" onAction="#addCompany" prefHeight="61.0" prefWidth="164.0" text="Add Company" />
+                        <Button fx:id="viewButton" layoutX="24.0" layoutY="227.0" mnemonicParsing="false" onAction="#viewCompanies" prefHeight="61.0" prefWidth="164.0" text="View companies" />
 
               </children>
             </AnchorPane>
