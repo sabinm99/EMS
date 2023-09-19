@@ -103,7 +103,7 @@
                       <Color red="0.624" green="0.624" blue="0.624" fx:id="x2" />
                            </textFill></Label>
                         <Button layoutX="24.0" layoutY="125.0" mnemonicParsing="false" onAction="#addCompany" prefHeight="61.0" prefWidth="164.0" text="Add Company" />
-                        <Button layoutX="24.0" layoutY="221.0" mnemonicParsing="false" prefHeight="61.0" prefWidth="166.0" text="View all companies" />
+
               </children>
             </AnchorPane>
           </content>
