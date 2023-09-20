@@ -28,14 +28,7 @@ public class Controller {
     @FXML
     private TextField foundingDate;
 
-    @FXML
-    private Label dateLabel;
-    @FXML
-    private Label addressLabel;
-    @FXML
-    private Label employeesLabel;
-    @FXML
-    private Label industryLabel;
+
 
 
     public void submitCompany(ActionEvent e) {

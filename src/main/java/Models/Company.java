@@ -23,6 +23,15 @@ public class Company {
     public String getName() {
         return this.name;
     }
+    public String getFoundingDate(){
+        return this.foundingDate;
+    }
+    public String getIndustry(){
+        return this.industry;
+    }
+    public String getAddress(){
+        return this.address;
+    }
 
     public void addEmployee(Employee employee) {
         this.employees.add(employee);

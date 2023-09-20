@@ -1,5 +1,7 @@
 package JDBC;
 
+import Models.Company;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -42,8 +44,18 @@ public class DBFunctions {
             names.add(companyName);
         }
         return names;
+    }
 
-
+    public static Company getCompanyByName(String name) throws SQLException {
+        Company company = null;
+        Connection connection = DriverManager
+                .getConnection("jdbc:postgresql://localhost:5432/EMS_DB",
+                        "postgres", "1234");
+        Statement statement = connection.createStatement();
+        ResultSet results = statement.executeQuery("SELECT * FROM companies WHERE company_name = '" + name +"'");
+        results.next();
+        company = new Company(name, results.getString("founding_date"), results.getString("company_address"), results.getString("industry"));
+        return company;
     }
 
 
