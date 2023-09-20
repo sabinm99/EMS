@@ -38,10 +38,17 @@
 
     </dependencies>
 
-
-
-
     <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+            </resource>
+            <resource>
+                <directory>src/main/java/UI</directory>
+            </resource>
+
+        </resources>
+
         <plugins>
             <plugin>
                 <groupId>org.openjfx</groupId>
@@ -53,5 +60,6 @@
             </plugin>
         </plugins>
     </build>
+
 
 </project>
