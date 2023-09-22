@@ -89,5 +89,26 @@ public class DBFunctions {
         return hasRecords;
     }
 
+    public static void updateCompanyDetails(String name, String newName, String newAddress, String newIndustry, String newFoundingDate){
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager
+                    .getConnection("jdbc:postgresql://localhost:5432/EMS_DB",
+                            "postgres", "1234");
+            PreparedStatement statement = connection.prepareStatement("UPDATE companies SET company_name = ?, company_address = ?, founding_date = ?, industry = ? WHERE company_name = ?");
+            statement.setString(1, newName);
+            statement.setString(2, newAddress);
+            statement.setString(3, newFoundingDate);
+            statement.setString(4, newIndustry);
+            statement.setString(5, name);
+
+            statement.executeUpdate();
+
+            System.out.println("record modified");
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("kkt: " + e.getMessage());
+        }
+    }
+
 }
 

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/20.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="UI.UpdateController">
+   <children>
+      <Label layoutX="137.0" layoutY="68.0" prefHeight="48.0" prefWidth="187.0" text="Edit information for company" />
+      <Label fx:id="companyNameLabel" layoutX="300.0" layoutY="68.0" prefHeight="48.0" prefWidth="260.0" />
+      <TextField fx:id="nameField" layoutX="214.0" layoutY="126.0" />
+      <TextField fx:id="addressField" layoutX="214.0" layoutY="175.0" />
+      <TextField fx:id="dateField" layoutX="214.0" layoutY="226.0" />
+      <TextField fx:id="industryField" layoutX="214.0" layoutY="281.0" />
+      <Label layoutX="90.0" layoutY="126.0" prefHeight="25.0" prefWidth="65.0" text="Name:" />
+      <Label layoutX="90.0" layoutY="175.0" prefHeight="25.0" prefWidth="65.0" text="Address:" />
+      <Label layoutX="90.0" layoutY="226.0" prefHeight="25.0" prefWidth="89.0" text="Founding date:" />
+      <Label layoutX="90.0" layoutY="281.0" prefHeight="25.0" prefWidth="65.0" text="Industry:" />
+      <Button fx:id="submitButton" layoutX="263.0" layoutY="334.0" mnemonicParsing="false" onAction="#submitUpdate" text="Submit" />
+      <Button fx:id="backButton" layoutX="38.0" layoutY="43.0" mnemonicParsing="false" onAction="#goBack" text="Go back" />
+   </children>
+</Pane>

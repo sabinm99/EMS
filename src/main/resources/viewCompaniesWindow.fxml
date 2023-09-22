@@ -103,7 +103,7 @@
             <Button fx:id="backButton" layoutX="69.0" layoutY="56.0" mnemonicParsing="false" onAction="#backToMainScreen" text="Go back" />
             <Button layoutX="46.0" layoutY="241.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Employees" />
             <Button fx:id="deleteButton" layoutX="266.0" layoutY="241.0" mnemonicParsing="false" onAction="#deleteCompany" prefHeight="27.0" prefWidth="106.0" text="Delete company" />
-            <Button layoutX="496.0" layoutY="241.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="106.0" text="Update details" />
+            <Button fx:id="updateButton" layoutX="496.0" layoutY="241.0" mnemonicParsing="false" onAction="#switchToUpdateScene" prefHeight="27.0" prefWidth="106.0" text="Update details" />
       </children>
     </AnchorPane>
   </children>

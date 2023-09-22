@@ -34,7 +34,7 @@ public class Controller {
         alert.show();
     }
 
-    public void submitCompany(ActionEvent e) {
+    public void submitCompany() {
         DBFunctions.addCompany(companyName.getText(), companyAddress.getText(), industry.getText(), foundingDate.getText());
         companyName.clear();
         companyAddress.clear();
