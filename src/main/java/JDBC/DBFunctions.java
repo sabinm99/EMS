@@ -21,8 +21,6 @@ public class DBFunctions {
             statement.setString(3, foundingDate);
             statement.setString(4, industry);
             statement.executeUpdate();
-            System.out.println("Record added");
-
         } catch (Exception e) {
             e.printStackTrace();
             System.err.println(e.getClass().getName() + ": " + e.getMessage());
@@ -52,12 +50,44 @@ public class DBFunctions {
                 .getConnection("jdbc:postgresql://localhost:5432/EMS_DB",
                         "postgres", "1234");
         Statement statement = connection.createStatement();
-        ResultSet results = statement.executeQuery("SELECT * FROM companies WHERE company_name = '" + name +"'");
+        ResultSet results = statement.executeQuery("SELECT * FROM companies WHERE company_name = '" + name + "'");
         results.next();
         company = new Company(name, results.getString("founding_date"), results.getString("company_address"), results.getString("industry"));
         return company;
     }
 
+    public static void removeCompany(String name) {
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager
+                    .getConnection("jdbc:postgresql://localhost:5432/EMS_DB",
+                            "postgres", "1234");
+            PreparedStatement statement = connection.prepareStatement("DELETE from Companies WHERE company_name = ?;");
+            statement.setString(1, name);
+            statement.executeUpdate();
+
+            System.out.println("record removed");
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("kkt: " + e.getMessage());
+        }
+    }
+
+    public static boolean databaseHasRecords() {
+        boolean hasRecords = false;
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager
+                    .getConnection("jdbc:postgresql://localhost:5432/EMS_DB",
+                            "postgres", "1234");
+            Statement statement = connection.createStatement();
+            ResultSet results = statement.executeQuery("SELECT company_id FROM companies");
+            if (results.next()){
+                hasRecords = true;}
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("cplm :" + e.getMessage());
+        }
+        return hasRecords;
+    }
 
 }
 

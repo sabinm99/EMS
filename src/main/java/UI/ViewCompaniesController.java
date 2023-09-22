@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
@@ -34,6 +35,12 @@ public class ViewCompaniesController implements Initializable {
     @FXML
     private Label industryLabel;
 
+    public static void showErrorPopup(ActionEvent e, String errorMessage) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setContentText(errorMessage);
+        alert.show();
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
@@ -57,15 +64,29 @@ public class ViewCompaniesController implements Initializable {
     }
 
     public void displayInfo(ActionEvent e) {
-        Company company = null;
-        try {
-            company = DBFunctions.getCompanyByName(companiesChoiceBox.getValue());
-        } catch (SQLException ex) {
-            throw new RuntimeException(ex);
+
+        if (DBFunctions.databaseHasRecords()) {
+            try {
+                Company company = DBFunctions.getCompanyByName(companiesChoiceBox.getValue());
+                dateLabel.setText(company.getFoundingDate());
+                addressLabel.setText(company.getAddress());
+                industryLabel.setText(company.getIndustry());
+            } catch (SQLException ex) {
+                System.out.println("error: " + ex.getMessage());
+            }
         }
-        dateLabel.setText(company.getFoundingDate());
-        addressLabel.setText(company.getAddress());
-        industryLabel.setText(company.getIndustry());
+    }
+
+    public void deleteCompany(ActionEvent e) throws IOException {
+        String toRemove = companiesChoiceBox.getValue();
+        companiesChoiceBox.getItems().remove(companiesChoiceBox.getValue());
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui.fxml"));
+        root = loader.load();
+        stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
+        scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+        DBFunctions.removeCompany(toRemove);
     }
 
 }
