@@ -1,6 +1,7 @@
 package UI;
 
 import JDBC.DBFunctions;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,7 +29,7 @@ public class Controller {
     @FXML
     private TextField foundingDate;
 
-    public static void showErrorPopup(ActionEvent e, String errorMessage) {
+    public static void showErrorPopup(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(errorMessage);
         alert.show();
@@ -60,7 +61,7 @@ public class Controller {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } else showErrorPopup(new ActionEvent(), "Database has no records. Please add some before viewing!");
+        } else showErrorPopup( "Database has no records. Please add some before viewing!");
     }
 
     public void backToMainScreen(ActionEvent e) throws IOException {

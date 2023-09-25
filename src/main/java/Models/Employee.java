@@ -1,22 +1,23 @@
 package Models;
 
-import java.time.LocalDate;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.value.ObservableValue;
+
 import java.util.ArrayList;
 public class Employee {
     private String firstName;
     private String lastName;
     private float salary;
-    private LocalDate hiringDate;
+    private String hiringDate;
     private Employee manager;
     private ArrayList<String> skills;
     private boolean active;
 
 
-    public Employee(String fullName, String hiringDate, float salary) {
-        String[] nameSplit = fullName.split(" ");
-        this.firstName = nameSplit[0];
-        this.lastName = nameSplit[1];
-        this.hiringDate = LocalDate.parse(hiringDate);
+    public Employee(String firstName, String lastName, String hiringDate, float salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hiringDate = hiringDate;
         this.salary = salary;
         this.active = true;
     }
@@ -58,5 +59,18 @@ public class Employee {
 
     public ArrayList<String> getSkills() {
         return skills;
+    }
+
+    public ObservableValue<String> getFirstName(){
+        return new SimpleStringProperty(this.firstName);
+    }
+    public ObservableValue<String> getLastName(){
+        return new SimpleStringProperty(this.lastName);
+    }
+    public String getFullName(){
+        return this.firstName + " " + this.lastName;
+    }
+    public float getSalary(){
+        return this.salary;
     }
 }

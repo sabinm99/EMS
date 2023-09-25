@@ -1,8 +1,13 @@
 package JDBC;
 
 import Models.Company;
+import Models.Employee;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
 import java.sql.*;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -81,15 +86,16 @@ public class DBFunctions {
                             "postgres", "1234");
             Statement statement = connection.createStatement();
             ResultSet results = statement.executeQuery("SELECT company_id FROM companies");
-            if (results.next()){
-                hasRecords = true;}
+            if (results.next()) {
+                hasRecords = true;
+            }
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("cplm :" + e.getMessage());
         }
         return hasRecords;
     }
 
-    public static void updateCompanyDetails(String name, String newName, String newAddress, String newIndustry, String newFoundingDate){
+    public static void updateCompanyDetails(String name, String newName, String newAddress, String newIndustry, String newFoundingDate) {
         try {
             Class.forName("org.postgresql.Driver");
             Connection connection = DriverManager
@@ -108,6 +114,30 @@ public class DBFunctions {
         } catch (SQLException | ClassNotFoundException e) {
             System.out.println("kkt: " + e.getMessage());
         }
+    }
+
+    public static ObservableList<Employee> getListOfEmployees(String companyName) {
+            ObservableList<Employee> list = FXCollections.observableArrayList();
+        try {
+            Class.forName("org.postgresql.Driver");
+            Connection connection = DriverManager
+                    .getConnection("jdbc:postgresql://localhost:5432/EMS_DB",
+                            "postgres", "1234");
+            PreparedStatement statement = connection.prepareStatement("SELECT * from Employees INNER JOIN Companies on companies.company_id = employees.company_id WHERE company_name = ?");
+            statement.setString(1, companyName);
+            ResultSet results = statement.executeQuery();
+            while (results.next()){
+                Employee employee = new Employee(results.getString("first_name"), results.getString("last_name"),
+                        results.getString("hiring_date"), results.getFloat("salary"));
+                list.add(employee);
+            }
+
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println("kkt: " + e.getMessage());
+
+
+        }
+        return list;
     }
 
 }
