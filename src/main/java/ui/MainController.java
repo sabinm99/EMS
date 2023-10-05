@@ -1,6 +1,6 @@
-package UI;
+package ui;
 
-import JDBC.DBFunctions;
+import dao.DBFunctions;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,7 +14,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class Controller {
+public class MainController {
+
+
 
     private Scene scene;
     private Stage stage;
@@ -28,6 +30,11 @@ public class Controller {
     private TextField industry;
     @FXML
     private TextField foundingDate;
+
+    /**
+     *
+     * Used to display a message to the user. (I.E. if there are no companies in the database.)
+     */
 
     public static void showErrorPopup(String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -61,7 +68,9 @@ public class Controller {
             scene = new Scene(root);
             stage.setScene(scene);
             stage.show();
-        } else showErrorPopup( "Database has no records. Please add some before viewing!");
+        } else {
+            showErrorPopup("Database has no records. Please add some before viewing!");
+        }
     }
 
     public void backToMainScreen(ActionEvent e) throws IOException {

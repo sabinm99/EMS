@@ -1,7 +1,7 @@
-package UI;
+package ui;
 
-import JDBC.DBFunctions;
-import Models.Employee;
+import dao.DBFunctions;
+import models.Employee;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -68,6 +68,10 @@ public class EmployeesController implements Initializable {
                 (observable, oldValue, newValue) -> displayInfo(newValue));
     }
 
+    /**
+     * Method used to display the information of the selected employee in the JavaFX scene.
+     *
+     */
     public void displayInfo(Employee employee){
         detailsPane.setVisible(true);
         nameLabel.setText(employee.getFullName());

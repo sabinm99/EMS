@@ -1,7 +1,7 @@
-package UI;
+package ui;
 
-import JDBC.DBFunctions;
-import Models.Company;
+import dao.DBFunctions;
+import models.Company;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -41,7 +41,7 @@ public class UpdateController implements Initializable {
             addressField.setText(company.getAddress());
             dateField.setText(company.getFoundingDate());
             industryField.setText(company.getIndustry());
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             System.out.println(e.getMessage());
         }
 

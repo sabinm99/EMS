@@ -1,8 +1,8 @@
-package UI;
+package ui;
 
-import JDBC.DBFunctions;
+import dao.DBFunctions;
 
-import Models.Company;
+import models.Company;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -79,6 +79,8 @@ public class ViewCompaniesController implements Initializable {
                 industryLabel.setText(company.getIndustry());
             } catch (SQLException ex) {
                 System.out.println("error: " + ex.getMessage());
+            } catch (ClassNotFoundException ex) {
+                throw new RuntimeException(ex);
             }
         }
     }
