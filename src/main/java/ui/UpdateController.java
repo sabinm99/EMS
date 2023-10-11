@@ -1,6 +1,6 @@
 package ui;
 
-import dao.DBFunctions;
+import dao.DAO;
 import models.Company;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +36,7 @@ public class UpdateController implements Initializable {
         companyNameLabel.setText(ViewCompaniesController.getCurrentName());
 
         try {
-            Company company = DBFunctions.getCompanyByName(companyNameLabel.getText());
+            Company company = DAO.getCompanyByName(companyNameLabel.getText());
             nameField.setText(company.getName());
             addressField.setText(company.getAddress());
             dateField.setText(company.getFoundingDate());
@@ -48,7 +48,7 @@ public class UpdateController implements Initializable {
     }
 
     public void submitUpdate(){
-        DBFunctions.updateCompanyDetails(companyNameLabel.getText(),nameField.getText(),addressField.getText(),
+        DAO.updateCompanyDetails(companyNameLabel.getText(),nameField.getText(),addressField.getText(),
                 industryField.getText(),dateField.getText());
         nameField.clear();
         addressField.clear();

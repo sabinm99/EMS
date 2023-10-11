@@ -12,18 +12,20 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-public class DBFunctions {
+public class DAO {
 
-    private static final Logger logger = LoggerFactory.getLogger(DBFunctions.class);
+    private static final Logger logger = LoggerFactory.getLogger(DAO.class);
 
-    public static void addCompany(String name, String foundingDate, String address, String industry) {
+    public static void add(String name, String foundingDate, String address, String industry) {
         try {
-            PreparedStatement statement = connect().prepareStatement("INSERT INTO Companies (company_name, company_address, founding_date, industry) VALUES (?, ?, ?, ?)");
+            Connection connection = connect();
+            PreparedStatement statement = connection.prepareStatement("INSERT INTO Companies (company_name, company_address, founding_date, industry) VALUES (?, ?, ?, ?)");
             statement.setString(1, name);
             statement.setString(2, address);
             statement.setString(3, foundingDate);
             statement.setString(4, industry);
             statement.executeUpdate();
+            connection.close();
         } catch (Exception e) {
             logger.error("Failed to add company with name {}", name, e);
         }
@@ -37,29 +39,37 @@ public class DBFunctions {
      */
     public static Collection<String> viewCompanyNames() throws ClassNotFoundException, SQLException {
         List<String> names = new ArrayList<>();
-        Statement statement = connect().createStatement();
+        Connection connection = connect();
+        Statement statement = connection.createStatement();
         ResultSet results = statement.executeQuery("SELECT company_name FROM companies");
         while (results.next()) {
             String companyName = results.getString("company_name");
             names.add(companyName);
         }
+        connection.close();
         return names;
     }
 
     public static Company getCompanyByName(String name) throws SQLException, ClassNotFoundException {
-        Statement statement = connect().createStatement();
+        Connection connection = connect();
+        Statement statement = connection.createStatement();
         ResultSet results = statement.executeQuery("SELECT * FROM companies WHERE company_name = '" + name + "'");
         results.next();
         return new Company(name, results.getString("founding_date"), results.getString("company_address"), results.getString("industry"));
     }
 
-    public static void removeCompany(String name) {
-        try {
-            PreparedStatement statement = connect().prepareStatement("DELETE from Companies WHERE company_name = ?;");
+    /**
+     *
+     * Remove a company from the database by its name.
+     */
+    public static void remove(String name)  {
+        try (Connection connection = connect()){
+            PreparedStatement statement = connection.prepareStatement("DELETE from Companies WHERE company_name = ?;");
             statement.setString(1, name);
             statement.executeUpdate();
         } catch (SQLException | ClassNotFoundException e) {
             logger.debug("Failed to remove company with name {}", name, e);
+
         }
     }
 
@@ -92,9 +102,8 @@ public class DBFunctions {
 
             statement.executeUpdate();
 
-            System.out.println("record modified");
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            logger.debug(e.getMessage());
         }
     }
 
@@ -110,15 +119,24 @@ public class DBFunctions {
             statement.setString(1, companyName);
             ResultSet results = statement.executeQuery();
             while (results.next()) {
-                Employee employee = new Employee(results.getString("first_name"), results.getString("last_name"),
+                Employee employee = new Employee(results.getInt("employee_id"),results.getString("first_name"), results.getString("last_name"),
                         results.getString("hiring_date"), results.getFloat("salary"));
                 list.add(employee);
             }
 
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            logger.debug(e.getMessage());
         }
         return list;
+    }
+
+    public static void deleteEmployee(int employeeID){
+        try (PreparedStatement statement = connect().prepareStatement("DELETE from employees WHERE employee_id = ?")){
+            statement.setInt(1, employeeID);
+            statement.executeUpdate();
+        } catch (SQLException | ClassNotFoundException e) {
+            logger.debug(e.getMessage());
+        }
     }
 
     /**

@@ -1,6 +1,6 @@
 package ui;
 
-import dao.DBFunctions;
+import dao.DAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -43,7 +43,7 @@ public class MainController {
     }
 
     public void submitCompany() {
-        DBFunctions.addCompany(companyName.getText(), companyAddress.getText(), industry.getText(), foundingDate.getText());
+        DAO.add(companyName.getText(), companyAddress.getText(), industry.getText(), foundingDate.getText());
         companyName.clear();
         companyAddress.clear();
         industry.clear();
@@ -61,7 +61,7 @@ public class MainController {
     }
 
     public void viewCompanies(ActionEvent e) throws IOException {
-        if (DBFunctions.databaseHasRecords()) {
+        if (DAO.databaseHasRecords()) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewCompaniesWindow.fxml"));
             root = loader.load();
             stage = (Stage) ((Node) e.getSource()).getScene().getWindow();

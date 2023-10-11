@@ -1,6 +1,6 @@
 package ui;
 
-import dao.DBFunctions;
+import dao.DAO;
 
 import models.Company;
 
@@ -49,7 +49,7 @@ public class ViewCompaniesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            companiesChoiceBox.getItems().addAll(DBFunctions.viewCompanyNames());
+            companiesChoiceBox.getItems().addAll(DAO.viewCompanyNames());
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println("miaspl " + e.getMessage());
         }
@@ -70,9 +70,9 @@ public class ViewCompaniesController implements Initializable {
 
     public void displayInfo(ActionEvent e) {
 
-        if (DBFunctions.databaseHasRecords()) {
+        if (DAO.databaseHasRecords()) {
             try {
-                Company company = DBFunctions.getCompanyByName(companiesChoiceBox.getValue());
+                Company company = DAO.getCompanyByName(companiesChoiceBox.getValue());
                 currentName = companiesChoiceBox.getValue();
                 dateLabel.setText(company.getFoundingDate());
                 addressLabel.setText(company.getAddress());
@@ -94,7 +94,7 @@ public class ViewCompaniesController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        DBFunctions.removeCompany(toRemove);
+        DAO.remove(toRemove);
     }
 
     public static String getCurrentName(){

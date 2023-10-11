@@ -22,6 +22,7 @@ public class Employee {
     private Employee manager;
     private Collection<String> skills;
     private boolean active;
+    private int employeeID;
 
     /**
      *
@@ -32,12 +33,13 @@ public class Employee {
      */
 
 
-    public Employee(String firstName, String lastName, String hiringDate, float salary) {
+    public Employee(int id, String firstName, String lastName, String hiringDate, float salary) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.hiringDate = hiringDate;
         this.salary = salary;
         this.active = true;
+        this.employeeID = id;
     }
 
     public void increaseSalaryByAmount(float amount) {

@@ -1,8 +1,6 @@
 package ui;
 
-import dao.DBFunctions;
-import models.Employee;
-
+import dao.DAO;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,7 +13,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-
+import models.Employee;
 
 import java.io.IOException;
 import java.net.URL;
@@ -46,6 +44,8 @@ public class EmployeesController implements Initializable {
     private Label phoneLabel;
     @FXML
     private Label emailLabel;
+    @FXML
+    private Label idLabel;
 
 
     public void goBack(ActionEvent e) throws IOException {
@@ -62,7 +62,7 @@ public class EmployeesController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         firstNameColumn.setCellValueFactory(cellData -> cellData.getValue().getFirstName());
         lastNameColumn.setCellValueFactory(cellData -> cellData.getValue().getLastName());
-        employeesTable.setItems(DBFunctions.getListOfEmployees(ViewCompaniesController.getCurrentName()));
+        employeesTable.setItems(DAO.getListOfEmployees(ViewCompaniesController.getCurrentName()));
 
         employeesTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> displayInfo(newValue));
@@ -70,13 +70,17 @@ public class EmployeesController implements Initializable {
 
     /**
      * Method used to display the information of the selected employee in the JavaFX scene.
-     *
      */
-    public void displayInfo(Employee employee){
+    public void displayInfo(Employee employee) {
         detailsPane.setVisible(true);
         nameLabel.setText(employee.getFullName());
         salaryLabel.setText(String.valueOf(employee.getSalary()));
         statusLabel.setText(employee.getStatusAsString());
+        idLabel.setText(String.valueOf(employee.getEmployeeID()));
+    }
 
+    public void deleteEmployee() {
+        DAO.deleteEmployee(Integer.parseInt(idLabel.getText()));
+        System.out.println("pressed!");
     }
 }
