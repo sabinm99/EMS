@@ -61,10 +61,6 @@ public class CompanyDAO implements DAO {
         return hasRecords;
     }
 
-    /**
-     * @return List of employees from a certain company in the database, as an ObservableList object, for visualising in JavaFX.
-     */
-
 
     /**
      * @return Connection to the database.
