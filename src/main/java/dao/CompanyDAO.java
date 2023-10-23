@@ -41,7 +41,18 @@ public class CompanyDAO implements DAO {
         Statement statement = connection.createStatement();
         ResultSet results = statement.executeQuery("SELECT * FROM companies WHERE company_name = '" + name + "'");
         results.next();
+        connection.close();
         return new Company(name, results.getString("founding_date"), results.getString("company_address"), results.getString("industry"));
+    }
+
+    public static int getIdByCompanyName(String name) throws SQLException, ClassNotFoundException {
+        Connection connection = connect();
+        PreparedStatement statement = connection.prepareStatement("SELECT company_id FROM companies WHERE company_name = ?");
+        statement.setString(1, name);
+        ResultSet results = statement.executeQuery();
+        results.next();
+        return results.getInt("company_id");
+
     }
 
     /**
@@ -69,6 +80,8 @@ public class CompanyDAO implements DAO {
         Class.forName("org.postgresql.Driver");
         return DriverManager.getConnection("jdbc:postgresql://localhost:5432/EMS_DB", "postgres", "1234");
     }
+
+
 
     public void add() {
         try {

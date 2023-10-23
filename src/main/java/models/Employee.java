@@ -35,11 +35,18 @@ public class Employee {
         this.hiringDate = hiringDate;
         this.salary = salary;
         this.active = true;
-
     }
 
     public Employee(int id) {
         this.employeeID = id;
+    }
+
+    public Employee(String firstName, String lastName, String hiringDate, float salary) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.hiringDate = hiringDate;
+        this.salary = salary;
+        this.active = true;
     }
 
     public String toString() {
@@ -56,11 +63,11 @@ public class Employee {
     /**
      * @return The first names and last names of employees as an ObservableValue object, for displaying them in JavaFX scenes.
      */
-    public ObservableValue<String> getFirstName() {
+    public ObservableValue<String> getObservableFirstName() {
         return new SimpleStringProperty(this.firstName);
     }
 
-    public ObservableValue<String> getLastName() {
+    public ObservableValue<String> getObservableLastName() {
         return new SimpleStringProperty(this.lastName);
     }
 

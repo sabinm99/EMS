@@ -15,7 +15,7 @@
           <TableColumn fx:id="lastNameColumn" prefWidth="119.20001220703125" text="Last name" />
         </columns>
       </TableView>
-      <Button fx:id="newButton" layoutX="293.0" layoutY="376.0" mnemonicParsing="false" text="New" />
+      <Button fx:id="newButton" layoutX="293.0" layoutY="376.0" mnemonicParsing="false" onAction="#toAddEmployee" text="New" />
       <Pane fx:id="detailsPane" layoutX="340.0" layoutY="78.0" prefHeight="272.0" prefWidth="272.0">
          <children>
             <Label layoutY="14.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="25.0" prefWidth="86.0" text="Full name:">
