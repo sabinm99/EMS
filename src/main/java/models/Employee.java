@@ -5,9 +5,6 @@ import javafx.beans.value.ObservableValue;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.Collection;
-
-
 
 /**
  * Model class to hold information for employees.
@@ -20,12 +17,10 @@ public class Employee {
     private float salary;
     private String hiringDate;
     private Employee manager;
-    private Collection<String> skills;
     private boolean active;
     private int employeeID;
 
     /**
-     *
      * @param firstName
      * @param lastName
      * @param hiringDate
@@ -34,29 +29,22 @@ public class Employee {
 
 
     public Employee(int id, String firstName, String lastName, String hiringDate, float salary) {
+        this.employeeID = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.hiringDate = hiringDate;
         this.salary = salary;
         this.active = true;
+
+    }
+
+    public Employee(int id) {
         this.employeeID = id;
-    }
-
-    public void increaseSalaryByAmount(float amount) {
-        salary += amount;
-    }
-
-    public void increaseSalaryByPercentage(float percentage) {
-        this.salary *= (1 + percentage * (1.0 / 100));
     }
 
     public String toString() {
         return firstName + " " + lastName + "\n" + "Salary: " + salary + "\n" + "Hiring date: " + hiringDate + "\n" +
                 "Is current employee: " + getStatusAsString();
-    }
-
-    public boolean getStatus() {
-        return active;
     }
 
     public String getStatusAsString() {
@@ -65,26 +53,18 @@ public class Employee {
         return "Yes";
     }
 
-    public void setManager(Employee manager) {
-        this.manager = manager;
-    }
-
-    public Collection<String> getSkills() {
-        return skills;
-    }
-
     /**
-     *
      * @return The first names and last names of employees as an ObservableValue object, for displaying them in JavaFX scenes.
-     *
      */
-    public ObservableValue<String> getFirstName(){
+    public ObservableValue<String> getFirstName() {
         return new SimpleStringProperty(this.firstName);
     }
-    public ObservableValue<String> getLastName(){
+
+    public ObservableValue<String> getLastName() {
         return new SimpleStringProperty(this.lastName);
     }
-    public String getFullName(){
+
+    public String getFullName() {
         return this.firstName + " " + this.lastName;
     }
 }

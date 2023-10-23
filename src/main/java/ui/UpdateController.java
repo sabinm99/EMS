@@ -1,6 +1,6 @@
 package ui;
 
-import dao.DAO;
+import dao.CompanyDAO;
 import models.Company;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -40,7 +40,7 @@ public class UpdateController implements Initializable {
         companyNameLabel.setText(ViewCompaniesController.getCurrentName());
 
         try {
-            Company company = DAO.getCompanyByName(companyNameLabel.getText());
+            Company company = CompanyDAO.getCompanyByName(companyNameLabel.getText());
             nameField.setText(company.getName());
             addressField.setText(company.getAddress());
             dateField.setText(company.getFoundingDate());
@@ -52,8 +52,9 @@ public class UpdateController implements Initializable {
     }
 
     public void submitUpdate(){
-        DAO.updateCompanyDetails(companyNameLabel.getText(),nameField.getText(),addressField.getText(),
-                industryField.getText(),dateField.getText());
+        CompanyDAO companyDAO = new CompanyDAO(new Company(nameField.getText(),dateField.getText(),addressField.getText(),
+                industryField.getText()));
+        companyDAO.update(companyNameLabel.getText());
         nameField.clear();
         addressField.clear();
         industryField.clear();

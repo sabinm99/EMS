@@ -1,6 +1,6 @@
 package ui;
 
-import dao.DAO;
+import dao.CompanyDAO;
 
 import models.Company;
 
@@ -54,7 +54,7 @@ public class ViewCompaniesController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         try {
-            companiesChoiceBox.getItems().addAll(DAO.viewCompanyNames());
+            companiesChoiceBox.getItems().addAll(CompanyDAO.viewCompanyNames());
         } catch (ClassNotFoundException | SQLException e) {
             logger.debug(e.getMessage());
         }
@@ -75,9 +75,9 @@ public class ViewCompaniesController implements Initializable {
 
     public void displayInfo(ActionEvent event) {
 
-        if (DAO.databaseHasRecords()) {
+        if (CompanyDAO.databaseHasRecords()) {
             try {
-                Company company = DAO.getCompanyByName(companiesChoiceBox.getValue());
+                Company company = CompanyDAO.getCompanyByName(companiesChoiceBox.getValue());
                 currentName = companiesChoiceBox.getValue();
                 dateLabel.setText(company.getFoundingDate());
                 addressLabel.setText(company.getAddress());
@@ -89,7 +89,7 @@ public class ViewCompaniesController implements Initializable {
         }
 
     public void deleteCompany(ActionEvent e) throws IOException {
-        String toRemove = companiesChoiceBox.getValue();
+        CompanyDAO companyDAO = new CompanyDAO(new Company (companiesChoiceBox.getValue()));
         companiesChoiceBox.getItems().remove(companiesChoiceBox.getValue());
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/ui.fxml"));
         root = loader.load();
@@ -97,7 +97,7 @@ public class ViewCompaniesController implements Initializable {
         scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
-        DAO.remove(toRemove);
+        companyDAO.remove();
     }
 
     public static String getCurrentName(){

@@ -1,6 +1,6 @@
 package ui;
 
-import dao.DAO;
+import dao.CompanyDAO;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import models.Company;
 
 import java.io.IOException;
 
@@ -43,7 +44,8 @@ public class MainController {
     }
 
     public void submitCompany() {
-        DAO.add(companyName.getText(), companyAddress.getText(), industry.getText(), foundingDate.getText());
+        CompanyDAO companyDAO = new CompanyDAO(new Company(companyName.getText(),foundingDate.getText(), companyAddress.getText(), industry.getText()));
+        companyDAO.add();
         companyName.clear();
         companyAddress.clear();
         industry.clear();
@@ -61,7 +63,7 @@ public class MainController {
     }
 
     public void viewCompanies(ActionEvent e) throws IOException {
-        if (DAO.databaseHasRecords()) {
+        if (CompanyDAO.databaseHasRecords()) {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/viewCompaniesWindow.fxml"));
             root = loader.load();
             stage = (Stage) ((Node) e.getSource()).getScene().getWindow();
