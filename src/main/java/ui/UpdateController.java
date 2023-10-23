@@ -12,6 +12,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +32,8 @@ public class UpdateController implements Initializable {
     @FXML
     private Label companyNameLabel;
 
+    private static final Logger logger = LoggerFactory.getLogger(UpdateController.class);
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -42,7 +46,7 @@ public class UpdateController implements Initializable {
             dateField.setText(company.getFoundingDate());
             industryField.setText(company.getIndustry());
         } catch (SQLException | ClassNotFoundException e) {
-            System.out.println(e.getMessage());
+            logger.debug(e.getMessage());
         }
 
     }

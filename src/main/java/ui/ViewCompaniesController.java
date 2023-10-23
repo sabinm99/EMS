@@ -15,6 +15,8 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.Label;
 import javafx.stage.Stage;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 import java.io.IOException;
@@ -40,6 +42,9 @@ public class ViewCompaniesController implements Initializable {
 
     private static String currentName;
 
+    private static final Logger logger = LoggerFactory.getLogger(ViewCompaniesController.class);
+
+
     public static void showErrorPopup(ActionEvent e, String errorMessage) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setContentText(errorMessage);
@@ -51,7 +56,7 @@ public class ViewCompaniesController implements Initializable {
         try {
             companiesChoiceBox.getItems().addAll(DAO.viewCompanyNames());
         } catch (ClassNotFoundException | SQLException e) {
-            System.out.println("miaspl " + e.getMessage());
+            logger.debug(e.getMessage());
         }
 
         companiesChoiceBox.setOnAction(this::displayInfo);
@@ -68,7 +73,7 @@ public class ViewCompaniesController implements Initializable {
         stage.show();
     }
 
-    public void displayInfo(ActionEvent e) {
+    public void displayInfo(ActionEvent event) {
 
         if (DAO.databaseHasRecords()) {
             try {
@@ -77,13 +82,11 @@ public class ViewCompaniesController implements Initializable {
                 dateLabel.setText(company.getFoundingDate());
                 addressLabel.setText(company.getAddress());
                 industryLabel.setText(company.getIndustry());
-            } catch (SQLException ex) {
-                System.out.println("error: " + ex.getMessage());
-            } catch (ClassNotFoundException ex) {
-                throw new RuntimeException(ex);
+            } catch (SQLException | ClassNotFoundException e) {
+                logger.debug(e.getMessage());
+            }
             }
         }
-    }
 
     public void deleteCompany(ActionEvent e) throws IOException {
         String toRemove = companiesChoiceBox.getValue();

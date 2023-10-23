@@ -81,6 +81,5 @@ public class EmployeesController implements Initializable {
 
     public void deleteEmployee() {
         DAO.deleteEmployee(Integer.parseInt(idLabel.getText()));
-        System.out.println("pressed!");
     }
 }
